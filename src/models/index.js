@@ -24,3 +24,10 @@ Pacientes.belongsToMany(Psicologos, {
    foreignKey: "paciente_id",
    through: Atendimentos
 })
+
+module.exports = {
+   Psicologos,
+   Pacientes,
+   Atendimentos
+}
+
