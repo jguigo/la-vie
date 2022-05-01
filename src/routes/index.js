@@ -5,8 +5,12 @@ const cadastroPsicologoValidator = require('../validation/psicologos/cadastroPsi
 const cadastroPacienteValidator = require('../validation/pacientes/attCadastroPaciente');
 const psicologosController = require("../controllers/psicologosController");
 const pacientesController = require("../controllers/pacientesController");
+const authController = require('../controllers/authController')
+const authLoginValidation = require('../validation/auth/login')
+const auth = require('../middleware/auth')
 
-
+// login
+routes.post('/login', authLoginValidation, authController.login)
 
 //crud pacientes
 routes.get("/pacientes", pacientesController.exibirPacientes);
@@ -18,14 +22,11 @@ routes.delete("/pacientes/:id", pacientesController.deletarPacientes);
 
 //crud psicologos
 routes.get('/psicologos', psicologosController.listarPsicologos)
-routes.post('/psicologos', cadastroPsicologoValidator, psicologosController.cadastrarPsicologo)
+routes.post('/psicologos', auth , cadastroPsicologoValidator, psicologosController.cadastrarPsicologo)
 routes.get('/psicologos/:id', psicologosController.listarPsicologoID)
 routes.put('/psicologos/:id', atualizacaoPsicologosValidator, psicologosController.atualizarPsicologo)
 routes.delete('/psicologos/:id', psicologosController.deletarPsicologo) 
-// routes.post()
 
-// routes.put()
-// routes.delete()
 
 //crud atendimento
 // routes.get()
