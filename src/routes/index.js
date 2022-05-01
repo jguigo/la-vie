@@ -1,5 +1,6 @@
 const express = require("express");
 const routes = express.Router();
+const psicologosController = require("../controllers/psicologosController");
 
 
 //crud pacientes
@@ -10,7 +11,7 @@ const routes = express.Router();
 
 //crud pacientes
 // routes.get()
-// routes.post()
+routes.post("/psicologos", psicologosController.cadastrar);
 // routes.put()
 // routes.delete()
 
