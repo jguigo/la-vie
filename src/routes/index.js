@@ -1,6 +1,5 @@
 const express = require("express");
 const routes = express.Router();
-const psicologosController = require('../controllers/psicologosController');
 const atualizacaoPsicologosValidator = require("../validation/atualizacaoPsicologosValidator");
 const cadastroPsicologoValidator = require('../validation/cadastroPsicologoValidator')
 const psicologosController = require("../controllers/psicologosController");
