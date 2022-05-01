@@ -5,6 +5,7 @@ const db = require('./database');
 const tratarErroValidacao = require('./middleware/tratarErroValidacao')
 
 const app = express();
+app.use(express.json());
 
 app.use(cors());
 

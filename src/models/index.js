@@ -17,17 +17,20 @@ Atendimentos.belongsTo(Pacientes,{
    foreignKey: "paciente_id"
 })
 
-// Psicologos.belongsToMany(Pacientes, {
-//    foreignKey: "psicologo_id",
-//    through: Atendimentos
-// })
-// Pacientes.belongsToMany(Psicologos, {
-//    foreignKey: "paciente_id",
-//    through: Atendimentos
-// })
+
+Psicologos.belongsToMany(Pacientes, {
+   foreignKey: "psicologo_id",
+   through: Atendimentos
+})
+Pacientes.belongsToMany(Psicologos, {
+   foreignKey: "paciente_id",
+   through: Atendimentos
+})
 
 module.exports = {
-   Pacientes,
    Psicologos,
+   Pacientes,
    Atendimentos
 }
+
+
