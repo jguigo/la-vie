@@ -84,7 +84,13 @@ const psicologoController = {
 
         const novaSenhaAtualizada = bcrypt.hashSync(senha, 10)
 
-        const psicologo = await Psicologos.update({
+        const psicologo = await Psicologos.findByPk(id)
+
+        if(!psicologo) {
+            return res.status(404).json("Id não encontrado");
+        }
+
+         await Psicologos.update({
             nome,
             email,
             senha: novaSenhaAtualizada,
@@ -95,9 +101,8 @@ const psicologoController = {
             }
         })
 
-        const psicologoAtualizado = await Psicologos.findByPk(id)
-
-        return res.status(200).json(psicologoAtualizado)
+        const psicologoAtualizado = await Psicologos.findByPk(id);
+        res.status(200).json(psicologoAtualizado);
     }
         catch(error) {
         console.error("Erro no servidor");
