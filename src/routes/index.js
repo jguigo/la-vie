@@ -9,6 +9,10 @@ const authController = require('../controllers/authController')
 const authLoginValidation = require('../validation/auth/login')
 const auth = require('../middleware/auth')
 
+const atendimentosController = require("../controllers/atendimentosController");
+
+
+
 // login
 routes.post('/login', authLoginValidation, authController.login)
 
@@ -29,7 +33,10 @@ routes.delete('/psicologos/:id', psicologosController.deletarPsicologo)
 
 
 //crud atendimento
-// routes.get()
+ routes.get("/atendimentos", atendimentosController.listarAtendimento)
+ routes.get("/atendimentos/:id", atendimentosController.listarAtendimentoId)
+ routes.post("/atendimentos", atendimentosController.criarAtendimento)
+
 // routes.post()
 // routes.put()
 // routes.delete()
