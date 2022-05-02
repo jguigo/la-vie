@@ -31,7 +31,7 @@ const AtendimentosController = {
 
         } catch (error) {
             if (error.name === "SequelizeUniqueConstraintError") {
-                res.status(400).json("Email já cadastrado!");
+                res.status(400).json("Id não encontrado");
             }
         }
     },
