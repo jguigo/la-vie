@@ -120,12 +120,13 @@ const psicologoController = {
             return res.status(404).json('Id não encontrado')
         }
 
-        const psicologoDeletado = await Psicologos.destroy({
+        await Psicologos.sequelize.query('SET FOREIGN_KEY_CHECKS = 0;');
+        await Psicologos.destroy({
             where: {
                 id
             }
         })
-
+        await Psicologos.sequelize.query('SET FOREIGN_KEY_CHECKS = 1;');
         return res.status(204).json()
 
 

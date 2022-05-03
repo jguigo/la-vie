@@ -66,11 +66,13 @@ const PacientesController = {
        if (!pacientes) {
           return res.status(404).json("Id não encontrado");
        }
+       await Pacientes.sequelize.query('SET FOREIGN_KEY_CHECKS = 0;');
        await Pacientes.destroy({
           where: {
              id,
           },
        });
+       await Pacientes.sequelize.query('SET FOREIGN_KEY_CHECKS = 1;');
        res.status(204).send();
        
      } catch (error) {
