@@ -13,43 +13,27 @@ const auth = require('../middleware/auth')
 const atendimentosController = require("../controllers/atendimentosController");
 
 
-
-// login
 routes.post('/login', authLoginValidation, authController.login)
 
-//crud pacientes
-routes.get("/pacientes", pacientesController.exibirPacientes);
-routes.get("/pacientes/:id", pacientesController.exibirPaciente);
-routes.post("/pacientes", cadastroPacienteValidator, pacientesController.cadastrarPacientes);
-routes.put("/pacientes/:id", cadastroPacienteValidator, pacientesController.atualizarPacientes);
-routes.delete("/pacientes/:id", pacientesController.deletarPacientes);
+routes.get("/pacientes", pacientesController.listar);
+routes.get("/pacientes/:id", pacientesController.listarID);
+routes.post("/pacientes", cadastroPacienteValidator, pacientesController.cadastrar);
+routes.put("/pacientes/:id", cadastroPacienteValidator, pacientesController.atualizar);
+routes.delete("/pacientes/:id", pacientesController.deletar);
 
+routes.get('/psicologos', psicologosController.listar)
+routes.get('/psicologos/:id', psicologosController.listarID)
+routes.post('/psicologos', cadastroPsicologoValidator, psicologosController.cadastrar)
+routes.put('/psicologos/:id', atualizacaoPsicologosValidator, psicologosController.atualizar)
+routes.delete('/psicologos/:id', psicologosController.deletar) 
 
-//crud psicologos
-routes.get('/psicologos', psicologosController.listarPsicologos)
-routes.post('/psicologos', cadastroPsicologoValidator, psicologosController.cadastrarPsicologo)
-routes.get('/psicologos/:id', psicologosController.listarPsicologoID)
-routes.put('/psicologos/:id', atualizacaoPsicologosValidator, psicologosController.atualizarPsicologo)
-routes.delete('/psicologos/:id', psicologosController.deletarPsicologo) 
+routes.get("/atendimentos", atendimentosController.listar)
+routes.get("/atendimentos/:id", atendimentosController.listarId)
+routes.post("/atendimentos", auth, atendimentosController.criar)
 
-
-//crud atendimento
- routes.get("/atendimentos", atendimentosController.listarAtendimento)
- routes.get("/atendimentos/:id", atendimentosController.listarAtendimentoId)
- routes.post("/atendimentos", auth, atendimentosController.criarAtendimento)
-
-// dashboard
 routes.get("/dashboard/pacientes", dashboardController.listarPacientes)
 routes.get("/dashboard/atendimentos", dashboardController.listarAtendimentos)
 routes.get("/dashboard/psicologos", dashboardController.listarPsicologos)
 routes.get("/dashboard/media", dashboardController.listarMedia)
-
-// routes.post()
-// routes.put()
-// routes.delete()
-
-
-
-
 
 module.exports = routes;
