@@ -25,8 +25,10 @@ const AtendimentosController = {
 
     async criarAtendimento(req, res) {
         try {
-            const { paciente_id, psicologo_id, data_atendimento, observacao } = req.body;
-            const novoAtendimento = await Atendimentos.create({ paciente_id, psicologo_id, data_atendimento, observacao });
+            const { paciente_id, data_atendimento, observacao } = req.body;
+            const { id } = req.auth;
+            const novoAtendimento = await Atendimentos.create({ paciente_id, psicologo_id: id, data_atendimento, observacao });
+            
             res.status(201).json(novoAtendimento);
 
         } catch (error) {
@@ -35,8 +37,6 @@ const AtendimentosController = {
             }
         }
     },
-
-
 }
 
         

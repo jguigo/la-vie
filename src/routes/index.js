@@ -26,7 +26,7 @@ routes.delete("/pacientes/:id", pacientesController.deletarPacientes);
 
 //crud psicologos
 routes.get('/psicologos', psicologosController.listarPsicologos)
-routes.post('/psicologos', auth , cadastroPsicologoValidator, psicologosController.cadastrarPsicologo)
+routes.post('/psicologos', cadastroPsicologoValidator, psicologosController.cadastrarPsicologo)
 routes.get('/psicologos/:id', psicologosController.listarPsicologoID)
 routes.put('/psicologos/:id', atualizacaoPsicologosValidator, psicologosController.atualizarPsicologo)
 routes.delete('/psicologos/:id', psicologosController.deletarPsicologo) 
@@ -35,7 +35,7 @@ routes.delete('/psicologos/:id', psicologosController.deletarPsicologo)
 //crud atendimento
  routes.get("/atendimentos", atendimentosController.listarAtendimento)
  routes.get("/atendimentos/:id", atendimentosController.listarAtendimentoId)
- routes.post("/atendimentos", atendimentosController.criarAtendimento)
+ routes.post("/atendimentos", auth, atendimentosController.criarAtendimento)
 
 // routes.post()
 // routes.put()
