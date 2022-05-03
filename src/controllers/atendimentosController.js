@@ -17,7 +17,6 @@ const AtendimentosController = {
                 return res.status(404).json("Id não encontrado");
             }
             res.status(200).json(atendimentos);
-
         } catch (error) {
             res.status(500).json(error);
         }
@@ -28,9 +27,7 @@ const AtendimentosController = {
             const { paciente_id, data_atendimento, observacao } = req.body;
             const { id } = req.auth;
             const novoAtendimento = await Atendimentos.create({ paciente_id, psicologo_id: id, data_atendimento, observacao });
-            
             res.status(201).json(novoAtendimento);
-
         } catch (error) {
             if (error.name === "SequelizeUniqueConstraintError") {
                 res.status(400).json("Id não encontrado");
@@ -38,7 +35,5 @@ const AtendimentosController = {
         }
     },
 }
-
-        
 
 module.exports = AtendimentosController

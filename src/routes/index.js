@@ -5,6 +5,7 @@ const cadastroPsicologoValidator = require('../validation/psicologos/cadastroPsi
 const cadastroPacienteValidator = require('../validation/pacientes/attCadastroPaciente');
 const psicologosController = require("../controllers/psicologosController");
 const pacientesController = require("../controllers/pacientesController");
+const dashboardController = require("../controllers/dashboardController");
 const authController = require('../controllers/authController')
 const authLoginValidation = require('../validation/auth/login')
 const auth = require('../middleware/auth')
@@ -36,6 +37,12 @@ routes.delete('/psicologos/:id', psicologosController.deletarPsicologo)
  routes.get("/atendimentos", atendimentosController.listarAtendimento)
  routes.get("/atendimentos/:id", atendimentosController.listarAtendimentoId)
  routes.post("/atendimentos", auth, atendimentosController.criarAtendimento)
+
+// dashboard
+routes.get("/dashboard/pacientes", dashboardController.listarPacientes)
+routes.get("/dashboard/atendimentos", dashboardController.listarAtendimentos)
+routes.get("/dashboard/psicologos", dashboardController.listarPsicologos)
+routes.get("/dashboard/media", dashboardController.listarMedia)
 
 // routes.post()
 // routes.put()
