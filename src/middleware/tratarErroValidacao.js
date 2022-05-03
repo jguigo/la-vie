@@ -6,7 +6,7 @@ tratarErroValidacao = (error, req, res, next) => {
     }
 
     if(error.name == "UnauthorizedError") {
-        return res.status(401).json(error)
+        return res.status(401).json("E-mail ou senha inválido, verifique e tente novamente");
     }
     
     return res.status(500).json(error)
