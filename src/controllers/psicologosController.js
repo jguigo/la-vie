@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const psicologoController = {
    listar: async (req, res) => {
       try {
-         const listaDePsicologos = await Psicologos.findAll();
+         const listaDePsicologos = await Psicologos.findAll({ where: {status: 1}});
          res.status(200).json(listaDePsicologos);
       } catch (error) {
          console.log("Erro no servidor");
@@ -107,9 +107,7 @@ const psicologoController = {
             return res.status(404).json("Id não encontrado");
          }
 
-         await Psicologos.sequelize.query("SET FOREIGN_KEY_CHECKS = 0;");
-         await Psicologos.destroy({ where: { id } });
-         await Psicologos.sequelize.query("SET FOREIGN_KEY_CHECKS = 1;");
+         await Psicologos.update({ status: 0}, { where: { id } });
 
          return res.status(204).json();
       } catch (error) {
