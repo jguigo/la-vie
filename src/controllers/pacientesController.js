@@ -3,7 +3,7 @@ const { Pacientes } = require("../models");
 const PacientesController = {
    async listar(req, res) {
       try {
-         const pacientes = await Pacientes.findAll();
+         const pacientes = await Pacientes.findAll( {where: {status:1} } );
          res.status(200).json(pacientes);
       } catch (error) {
          res.status(500).json(error);
@@ -30,7 +30,8 @@ const PacientesController = {
          res.status(201).json(novoPaciente);
       } catch (error) {
          if (error.name === "SequelizeUniqueConstraintError") {
-            res.status(400).json("Email já cadastrado!");
+         return res.status(400).json("Email já cadastrado!");
+         
          }
          res.status(500).json(error);
       }
@@ -64,11 +65,9 @@ const PacientesController = {
             return res.status(404).json("Id não encontrado");
          }
 
-         await Pacientes.sequelize.query("SET FOREIGN_KEY_CHECKS = 0;");
-         await Pacientes.destroy({ where: { id } });
-         await Pacientes.sequelize.query("SET FOREIGN_KEY_CHECKS = 1;");
+         await Pacientes.update( { status: 0}, { where: { id } });
 
-         res.status(204).send();
+         res.status(204).json("Usuario inativo.");
       } catch (error) {
          res.status(500).json(error);
       }

@@ -19,6 +19,9 @@ const Pacientes = db.define(
       idade: {
          type: DataTypes.DATE,
       },
+      status: {
+         type: DataTypes.TINYINT,
+      },
    },
    {
       tableName: "pacientes",
