@@ -1,5 +1,4 @@
 const { Psicologos, Atendimentos, Pacientes } = require('../models');
-const { listarAtendimento } = require('./atendimentosController');
 
 const dashboardController = {
     async listarAtendimentos(req, res) {
