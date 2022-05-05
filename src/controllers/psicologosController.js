@@ -4,7 +4,10 @@ const bcrypt = require("bcryptjs");
 const psicologoController = {
    listar: async (req, res) => {
       try {
-         const listaDePsicologos = await Psicologos.findAll({ where: {status: 1}});
+         const listaDePsicologos = await Psicologos.findAll({
+            where: { status: 1 },
+            attributes: { exclude: ["status"] },
+         });
          res.status(200).json(listaDePsicologos);
       } catch (error) {
          console.log("Erro no servidor");
@@ -35,19 +38,13 @@ const psicologoController = {
    cadastrar: async (req, res) => {
       try {
          const { nome, email, senha, apresentacao } = req.body;
+         const count = await Psicologos.count({ where: { email } });
 
-         const emailExistente = await Psicologos.findOne({
-            where: {
-               email,
-            },
-         });
-
-         if (emailExistente) {
+         if (count) {
             return res.status(400).json("Esse email já existe!");
          }
 
          const novaSenha = bcrypt.hashSync(senha, 10);
-
          const novoPsicologo = await Psicologos.create({
             nome,
             email,
@@ -68,13 +65,13 @@ const psicologoController = {
       try {
          const { id } = req.params;
          const { nome, email, senha, apresentacao } = req.body;
-         const novaSenhaAtualizada = bcrypt.hashSync(senha, 10);
+         
          const psicologo = await Psicologos.findByPk(id);
-
          if (!psicologo) {
             return res.status(404).json("Id não encontrado");
          }
 
+         const novaSenhaAtualizada = bcrypt.hashSync(senha, 10);
          await Psicologos.update(
             {
                nome,
@@ -107,7 +104,7 @@ const psicologoController = {
             return res.status(404).json("Id não encontrado");
          }
 
-         await Psicologos.update({ status: 0}, { where: { id } });
+         await Psicologos.update({ status: 0 }, { where: { id } });
 
          return res.status(204).json();
       } catch (error) {
