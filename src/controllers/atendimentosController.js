@@ -6,9 +6,12 @@ const AtendimentosController = {
          const atendimentos = await Atendimentos.findAll();
          res.status(200).json(atendimentos);
       } catch (error) {
-         res.status(500).json(error);
+         console.log("Erro no servidor");
+         console.error(error);
+         return res.status(500).json("Erro no servidor");
       }
    },
+   
    async listarId(req, res) {
       try {
          const { id } = req.params;
@@ -20,7 +23,9 @@ const AtendimentosController = {
 
          res.status(200).json(atendimentos);
       } catch (error) {
-         res.status(500).json(error);
+         console.log("Erro no servidor");
+         console.error(error);
+         return res.status(500).json("Erro no servidor");
       }
    },
 
@@ -37,9 +42,9 @@ const AtendimentosController = {
 
          res.status(201).json(novoAtendimento);
       } catch (error) {
-         if (error.name === "SequelizeUniqueConstraintError") {
-            res.status(400).json("Id não encontrado");
-         }
+         console.log("Erro no servidor");
+         console.error(error);
+         return res.status(500).json("Erro no servidor");
       }
    },
 };
