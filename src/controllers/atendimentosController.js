@@ -1,9 +1,17 @@
-const { Atendimentos } = require("../models");
+const { Atendimentos, Pacientes, Psicologos } = require("../models");
 
 const AtendimentosController = {
    async listar(req, res) {
       try {
-         const atendimentos = await Atendimentos.findAll();
+         const atendimentos = await Atendimentos.findAll({
+            include: [
+               { model: Pacientes, attributes: { exclude: ["status"] } },
+               {
+                  model: Psicologos,
+                  attributes: { exclude: ["senha", "status"] },
+               },
+            ],
+         });
          res.status(200).json(atendimentos);
       } catch (error) {
          console.log("Erro no servidor");
@@ -11,11 +19,20 @@ const AtendimentosController = {
          return res.status(500).json("Erro no servidor");
       }
    },
-   
+
    async listarId(req, res) {
       try {
          const { id } = req.params;
-         const atendimentos = await Atendimentos.findByPk(id);
+         const atendimentos = await Atendimentos.findOne({
+            where: { id },
+            include: [
+               { model: Pacientes, attributes: { exclude: ["status"] } },
+               {
+                  model: Psicologos,
+                  attributes: { exclude: ["senha", "status"] },
+               },
+            ],
+         });
 
          if (!atendimentos) {
             return res.status(404).json("Id não encontrado");
